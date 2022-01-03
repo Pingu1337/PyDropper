@@ -10,7 +10,6 @@ from pathlib import Path
 import os
 import sys
 
-
 def get_path(relative_path):
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
