@@ -1,0 +1,7 @@
+# ignore pyinstaller files
+/__pycache__
+/build
+/dist
+deploy.txt
+*.spec
+version.txt

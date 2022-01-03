@@ -6,6 +6,19 @@ import pyperclip
 import colormap
 import re
 import webbrowser
+from pathlib import Path
+import os
+import sys
+
+
+def get_path(relative_path):
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 last_color = '#fff'
 
@@ -27,7 +40,7 @@ def openNewWindow():
     newWindow = tk.Toplevel(root)
     newWindow.attributes('-topmost', True)
     newWindow.resizable(False, False)
-    newWindow.iconbitmap('ico\settings.ico')
+    newWindow.iconbitmap(get_path('settings.ico'))
     newWindow.title("settings")
     width = 210
     height = 200
@@ -38,7 +51,7 @@ def openNewWindow():
     newWindow.protocol("WM_DELETE_WINDOW", on_closing)
  
     tk.Label(newWindow,
-          text ="EyeDropper settings").pack()
+          text ="PyDropper settings").pack()
     c1 = tk.Checkbutton(newWindow, text='always on top',variable=var1, onvalue=1, offvalue=0)
     c1.pack()
 
@@ -51,7 +64,7 @@ def openNewWindow():
 
     link1 = tk.Label(newWindow, text="GitHub", fg="blue", cursor="hand2")
     link1.pack(expand=True)
-    link1.bind("<Button-1>", lambda e: callback("https://github.com/Pingu1337"))
+    link1.bind("<Button-1>", lambda e: callback("https://github.com/Pingu1337/PyDropper"))
 
     ok_btn = tk.Button(newWindow, text = 'Save', command = on_closing, padx=10, pady=5)
     ok_btn.pack(expand=True)
@@ -187,9 +200,9 @@ root.geometry('%dx%d+%d+%d' % (width, height, x, y/2))
 var1 = tk.IntVar(value=1)
 var2 = tk.StringVar(value='HEX')
 
-root.iconbitmap('ico\eyedropper.ico')
-settings_dark = tk.PhotoImage(file='img\cogwheel32.png')
-settings_light = tk.PhotoImage(file='img\cogwheel32light.png')
+root.iconbitmap(get_path('eyedropper.ico'))
+settings_dark = tk.PhotoImage(file=get_path('cogwheel32.png'))
+settings_light = tk.PhotoImage(file=get_path('cogwheel32light.png'))
 root.resizable(False, False)
 root.update()
 def Draw():
@@ -202,8 +215,8 @@ def Draw():
     frame.place(x=10,y=10)
     another_frame=tk.Frame(root,width=300,height=30,relief='solid',bd=0)
     another_frame.place(x=80,y=10)
-    root.title('EyeDropper v1.0')
-    text=tk.Label(frame,text='EyeDropper v1.0', fg='#fff')
+    root.title('PyDropper v1.0')
+    text=tk.Label(frame,text='PyDropper v1.0', fg='#fff')
     text.pack()
     txt=tk.Label(another_frame,text="press 'c' to copy color code",fg='#fff')
     txt.pack()
